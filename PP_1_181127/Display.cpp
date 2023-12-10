@@ -120,18 +120,23 @@ void Display::printguess() {
 };
 
 void Display::markatom() {
+	
 	if (laser.current_cursor() == 'o') {
-		if (laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 1) {
+		if (diff>marks&&laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 1) {
+			marks++;
 			laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] = 3;
 		}
-		else if (laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 0) {
+		else if (diff > marks && laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 0) {
+			marks++;
 			laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] = 2;
 		}
-		else if (laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] == 2) {
-			laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] = 0;
+		else if (laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 2) {
+			laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] = 0;
+			marks--;
 		}
 		else if (laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] == 3) {
 			laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] = 1;
+			marks--;
 		}
 	}
 

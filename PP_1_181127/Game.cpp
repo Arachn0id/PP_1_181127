@@ -118,6 +118,7 @@ void Game::diff(int key) {
 		display.resetboard();
 		display.grid(8);
 		display.movecursor(0,0);
+		display.diff = easy_atoms;
 		display.laser.map.generate(easy_atoms, 8);
 	}
 	else if (key == '2') {
@@ -126,6 +127,7 @@ void Game::diff(int key) {
 		display.resetboard();
 		display.grid(10);
 		display.movecursor(0,0);;
+		display.diff = hard_atoms;
 		display.laser.map.generate(hard_atoms, 10);
 	}
 	else {

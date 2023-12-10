@@ -24,7 +24,10 @@ private:
 	int x_offset;
 	int y_offset;
 	int size;
+	int marks = 0;
+	
 public:
+	int diff;
 	Laser laser;
 	Display();
 	void endgame();
