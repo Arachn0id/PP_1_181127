@@ -42,13 +42,12 @@ void Game::move() {
 	}
 	else if (key == 'f') {
 		display.laser.fire();
-		cout << "pew pew pew \n";
+		display.printguess();
 	}
 	else if (key == 'q') {
 		if (menu == false) {
 			display.resetboard();
 			display.menu();
-			display.print();
 			cout << "powrot do menu \n";
 			menu = true;
 			help = false;
@@ -57,7 +56,6 @@ void Game::move() {
 			display.resetboard();
 			display.grid(display.getsize());
 			display.movecursor(0, 0);
-			display.print();
 			menu = false;
 		};
 		
@@ -66,10 +64,12 @@ void Game::move() {
 		cout << "wczytano gre \n";
 	
 	}
+	else if (key == 'o') {
+		display.markatom();
+	}
 	else if (key == 'p') {
 		if (help == false && menu ==false) {
 			display.printmap();
-			display.print();
 			cout << "Wlaczono oszustwa" << endl;
 			help = true;
 		}
@@ -85,9 +85,10 @@ void Game::move() {
 		
 	}
 	else if (key == 'k') {
+		display.endgame();
 		display.printmap();
 		display.print();
-		cout << "KONIEC GRY" << endl;
+		exit(0);
 	}
 	else {
 		cout << key << "is invalid move \n";
@@ -100,6 +101,8 @@ void Game::start() {
 	display.print();
 	do {
 		move();
+		display.printguess();
+		display.movecursor(0, 0);
 		display.print();
 	} while (win == false);
 	display.printmap();

@@ -15,6 +15,7 @@ public:
 	char current_cursor();
 	void setcursor(int x);
 	void set_size(int x);
+	int getshotcount();
 private:
 	char icon[6] = { 'v','^','<','>','o','x' };
 	int cursor_id = 0;
@@ -23,4 +24,5 @@ private:
 	int y_pos;
 	int y_pos_map;
 	int size;
+	int shotcount = 0;
 };

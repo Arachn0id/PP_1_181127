@@ -39,6 +39,18 @@ void Display::resetboard() {
 	placemiddle(NAME, k);
 };
 
+void Display::endgame() {
+	resetboard();
+	grid(size);
+	placemiddle(wintext, 21);
+	placemiddle(scoretext, 22);
+	int score = laser.map.score();
+	cout << laser.map.score();
+	char ch_score = '0' + score;
+	placemiddle(ch_score, 23);
+}
+
+
 void Display::grid(int boardsize) {
 	offset(boardsize);
 	char K = '#';
@@ -78,7 +90,7 @@ void Display::grid(int boardsize) {
 void Display::printmap() {
 	for (int i = 1; i < size+1; i++) {
 		for (int j = 1; j<size+1; j++){
-			if (laser.map.board[i][j] != 0) {
+			if (laser.map.board[i][j] == 1 || laser.map.board[i][j] == 3) {
 				board[y_offset + i ][x_offset + 3 * j ] = '[';
 				board[y_offset + i ][x_offset + 3 * j +1] = 'O';
 				board[y_offset + i ][x_offset + 3 * j +2] = ']';
@@ -87,9 +99,49 @@ void Display::printmap() {
 	};
 };
 
+void Display::printguess() {
+	for (int i = 0; i < 11; i++) {
+		for (int j = 0; j < 11; j++)
+		{
+			if (laser.map.board[i][j] > 5) {
+				board[y_offset + i][x_offset + 3 * j + 1] = ' ' + laser.map.board[i][j];
+			};
+			if (laser.map.board[i][j] == 2 || laser.map.board[i][j] == 3) {
+				board[y_offset + i][x_offset + 3 * j + 1] = 'X';
+			};
+			if (laser.map.board[i][j] == 4) {
+				board[y_offset + i][x_offset + 3 * j + 1] = 'H';
+			};
+			if (laser.map.board[i][j] == 5) {
+				board[y_offset + i][x_offset + 3 * j + 1] = 'R';
+			};
+		}
+	};
+};
+
+void Display::markatom() {
+	if (laser.current_cursor() == 'o') {
+		if (laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 1) {
+			laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] = 3;
+		}
+		else if (laser.map.board[laser.get_y_map() - 1][laser.get_x_map() - 1] == 0) {
+			laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] = 2;
+		}
+		else if (laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] == 2) {
+			laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] = 0;
+		}
+		else if (laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] == 3) {
+			laser.map.board[laser.get_y_map()-1][laser.get_x_map()-1] = 1;
+		}
+	}
+
+	//board[laser.get_y()][laser.get_x()] = 'X';
+};
+
 int Display::getsize() {
 	return size;
 };
+
 void Display::menu() {
 	placemiddle(A, k + 3);
 	placemiddle(B, k + 4);
@@ -102,8 +154,7 @@ void Display::menu() {
 };
 
 void Display::win() {
-	resetboard();
-	placemiddle(wintext, 15);
+
 };
 
 void Display::placemiddle(char stringy[], int x) {
@@ -117,6 +168,12 @@ void Display::placemiddle(char stringy[], int x) {
 		cout << "widthtooshort";
 		exit(1);
 	}
+};
+
+void Display::placemiddle(char ch, int x) {
+
+			board[x][(board_width - size + 8 ) / 2] = ch;
+	
 };
 
 void Display::print() {

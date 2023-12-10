@@ -20,13 +20,16 @@ private:
 	char F[44] = "Ruch: WSAD / STRZAL: SPACE / POKAZ ATOMY: P";
 	char markers[3] = { 'X', '&','%' };
 	char wintext[11] = "GRATULACJE";
+	char scoretext[11] = "Twoj wynik";
 	int x_offset;
 	int y_offset;
 	int size;
 public:
 	Laser laser;
 	Display();
+	void endgame();
 	void win();
+	void markatom();
 	void menu();
 	void print();
 	void resetboard();
@@ -34,8 +37,10 @@ public:
 	void movecursor(int x, int y);
 	void printmap();
 	void placemiddle(char what[], int x);
+	void placemiddle(char what, int x);
 	void offset(int size);
 	int getsize();
+	void printguess();
 }; 
 
 

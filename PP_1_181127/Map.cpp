@@ -25,6 +25,18 @@ void Map::generate(int atoms, int size) {
 
 };
 
+int Map::score() {
+	int score =0;
+	for (int x = 0; x < 11; x++) {
+		for (int y = 0; y < 11; y++) {
+			if (board[x][y] == 3) {
+				score++;
+			}
+		}
+	};
+	return score;
+}
+
 Map::Map() {
 
 };
